@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 import { HealthColors, HealthThresholds } from './enums/enums'
-import { Thresholds, HealthIndicator, HealthScoreTypeNames } from './types/types'
+import { Thresholds, HealthScoreTypeNames } from './types/types'
 import { HealthScoreTypes } from '../objects/healthScoreTypes'
 
 const { title, value, thresholds } = defineProps<{
@@ -14,7 +14,8 @@ const { title, value, thresholds } = defineProps<{
 const getPercentage = (value: number): string => {
   return `${Math.round(value * 100 * 10) / 10}%`
 }
-const getThreshold = (value: number, thresholds: Thresholds): HealthThresholds => {
+
+const getThreshold = (): HealthThresholds => {
   if (value >= thresholds[0] && value < thresholds[1]) {
     return HealthThresholds.LOW
   } else if (value >= thresholds[1] && value < thresholds[2]) {
@@ -25,11 +26,8 @@ const getThreshold = (value: number, thresholds: Thresholds): HealthThresholds =
     return HealthThresholds.NED
   }
 }
-const getPositionThreshold = (
-  threshold: HealthThresholds,
-  value: number,
-  thresholds: Thresholds
-): string => {
+
+const getPositionThreshold = (threshold: HealthThresholds): string => {
   if (threshold === HealthThresholds.LOW) {
     const startThreshold = thresholds[0]
     const endThreshold = thresholds[1]
@@ -48,9 +46,7 @@ const getPositionThreshold = (
 }
 
 const getHealthColor = (
-  HealthScoreTypes: Array<HealthIndicator>,
-  threshold: HealthThresholds,
-  title: HealthScoreTypeNames
+  threshold: HealthThresholds
 ): HealthColors.RED | HealthColors.YELLOW | HealthColors.GREEN => {
   if (threshold === HealthThresholds.MEDIUM) {
     return HealthColors.YELLOW
@@ -69,13 +65,11 @@ const getHealthColor = (
 }
 
 // VARIABLES
-const threshold = getThreshold(value, thresholds)
-const healthColor = getHealthColor(HealthScoreTypes, threshold, title)
+const threshold = getThreshold()
+const healthColor = getHealthColor(threshold)
 const thresholdStyles = `background-color: ${healthColor};`
 const percentageStyles = `background-color: ${healthColor}; left: ${getPositionThreshold(
-  threshold,
-  value,
-  thresholds
+  threshold
 )}%;`
 </script>
 
@@ -124,7 +118,6 @@ const percentageStyles = `background-color: ${healthColor}; left: ${getPositionT
 
 .health-bar {
   display: flex;
-  flex-direction: row;
   align-items: center;
   height: 35%;
   background-color: #28304b;

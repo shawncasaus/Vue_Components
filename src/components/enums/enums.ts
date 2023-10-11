@@ -8,13 +8,13 @@ export enum HealthThresholds {
   HIGH = 'High',
   MEDIUM = 'Medium',
   LOW = 'Low',
-  NED = 'Not Enough Data',
+  NED = 'Not Enough Data'
 }
 
 export enum HealthScoreTypeNames {
-    ONLINE = 'Online',
-    FIRST_MONTH_EXIT = '1st Month Exit',
-    RETENTION = 'Retention',
-    EXIT = 'Exit',
-    ENGAGEMENT = 'Engagement',
+  ONLINE = 'Online',
+  FIRST_MONTH_EXIT = '1st Month Exit',
+  RETENTION = 'Retention',
+  EXIT = 'Exit',
+  ENGAGEMENT = 'Engagement'
 }

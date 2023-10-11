@@ -4,11 +4,11 @@ import Data from '../objects/data'
 </script>
 
 <template>
-  <main class="mainDiv">
+  <main class="healthScoresWrapper">
     <div class="healthScores">
       <HealthScore
-        v-for="element in Data"
-        :key="element.title"
+        v-for="(element, index) in Data"
+        :key="index"
         :title="element.title"
         :value="element.value"
         :thresholds="element.thresholds"
@@ -18,16 +18,13 @@ import Data from '../objects/data'
 </template>
 
 <style>
-.mainDiv {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  top: 150px;
-  margin: auto;
+.healthScoresWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .healthScores {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 </style>
